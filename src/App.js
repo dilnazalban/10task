@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react';
+import { BulletinProvider } from './context/BulletinContext';
+import './App.css'; 
+const AddBulletinForm = React.lazy(() => import('./components/AddBulletinForm'));
+const BulletinBoard = React.lazy(() => import('./components/BulletinBoard'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BulletinProvider>
+      <div className="App">
+        <h1>Bulletin Board</h1>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AddBulletinForm />
+          <BulletinBoard />
+        </Suspense>
+      </div>
+    </BulletinProvider>
   );
 }
 
 export default App;
+
